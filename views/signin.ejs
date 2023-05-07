@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/head.ejs') %>
+  <%- include('./partials/nav.ejs') %>
   <body>
+    <% if (locals.error) { %>
+    <p class="error_message_signin"><%= locals.error %></p>
+    <% } %>
     <div class="form_wrapper">
       <form class="form_signup" action="/login" method="post">
         <label for="email">Email</label>
