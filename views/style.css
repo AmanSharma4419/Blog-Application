@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+.nav_bar_wrapper {
+  width: 100vw;
+  background-color: black;
+}
+.nav_bar_top {
+  width: 30%;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.nav_bar_top:hover {
+  cursor: pointer;
+}
+
+.nav_bar_wrapper:hover {
+  background-color: rgb(88, 23, 23);
+  text-decoration-color: none;
+  transition: 1s ease-in-out;
+}
+
+.form_wrapper {
+  width: 100%;
+  margin-top: 1rem;
+}
+button {
+  width: 10rem;
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  text-transform: capitalize;
+}
+.form_signup {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 30%;
+  font-size: 1.5rem;
+}
+input {
+  height: 2.5rem;
+  outline: none;
+}

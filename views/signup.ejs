@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <div class="form_wrapper">
+      <form class="form_signup" action="/register" method="post">
+        <label for="fullName">FullName</label>
+        <input type="text" placeholder="Eg: Aman Sharma" name="fullName" />
+        <label for="email">Email</label>
+        <input
+          type="text"
+          placeholder="Eg: sharmaaman4419@gmail.com"
+          name="email"
+        />
+        <label for="email">Password</label>
+        <input type="text" placeholder="Eg: Qwerty@#" name="password" />
+        <button type="submit">submit</button>
+      </form>
+    </div>
+  </body>
+</html>
