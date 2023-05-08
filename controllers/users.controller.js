@@ -10,6 +10,7 @@ const handleUserCreation = async (req, res) => {
   try {
     const user = await User.create(userInfo);
     if (user) {
+      res.redirect("/signin");
       return res.status(200).json({ user: user });
     }
   } catch (error) {
@@ -22,11 +23,19 @@ const handleUserLogin = async (req, res) => {
   try {
     const token = await User.matchPasswordAndCreateToken(email, password);
     if (token) {
-      return res.status(200).cookie("token", token).json({ token: token });
+      return res.status(200).cookie("token", token).redirect("/");
     }
   } catch (error) {
     res.render("signin", { error: error.message });
   }
 };
 
-module.exports = { handleUserCreation, handleUserLogin };
+const handleUserLogout = (req, res) => {
+  try {
+    return res.clearCookie("token").redirect("/");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+module.exports = { handleUserCreation, handleUserLogin, handleUserLogout };

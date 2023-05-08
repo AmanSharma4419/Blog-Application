@@ -1,12 +1,13 @@
 const JWT = require("jsonwebtoken");
 const createTokenForUser = (user) => {
-  const { _id, email, profile, profileImage, role } = user;
+  const { _id, email, profile, profileImage, role, fullName } = user;
   const payload = {
     _id: _id,
     email: email,
     profile: profile,
     profileImage: profileImage,
     role: role,
+    fullName: fullName,
   };
   try {
     const token = JWT.sign(payload, process.env.SECRET);

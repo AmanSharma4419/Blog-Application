@@ -1,6 +1,7 @@
 const {
   handleUserCreation,
   handleUserLogin,
+  handleUserLogout,
 } = require("../controllers/users.controller");
 const { Router } = require("express");
 
@@ -16,5 +17,6 @@ router.get("/signin", (req, res) => {
 
 router.post("/register", handleUserCreation);
 router.post("/login", handleUserLogin);
+router.get("/logout", handleUserLogout);
 
 module.exports = router;

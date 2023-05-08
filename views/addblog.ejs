@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/nav.ejs') %>
+  <body>
+    <div class="form_wrapper">
+      <form class="form_signup" action="/add-blog" enctype="multipart/form-data" method="post">
+        <label for="fullName">Title</label>
+        <input type="text" placeholder="Eg: Memory Book" name="title" />
+        <label for="email">Body</label>
+        <textarea
+          placeholder="Eg: Memory Book... "
+          name="body"
+          cols="30"
+          rows="10"
+        ></textarea>
+        <label for="email">CoverImageUrl</label>
+        <input type="file" placeholder="choose file" name="coverImageUrl" />
+        <button type="submit">submit</button>
+      </form>
+    </div>
+  </body>
+</html>
