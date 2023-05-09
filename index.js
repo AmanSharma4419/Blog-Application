@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 const userRoutes = require("./routes/users");
 const blogRoutes = require("./routes/blogs");
-
+const Blog = require("./models/blog");
 const { checkAuthTokenInHeaders } = require("./services/middlewares");
 const { connectionToDb } = require("./db/database.connection");
 
@@ -33,9 +33,10 @@ app.use(cookieParser());
 // Middle ware for token verification and getting the paylod
 app.use(checkAuthTokenInHeaders("token"));
 
-// Rendering the homepage
-app.get("/", (req, res) => {
-  res.render("homepage", { user: req.user });
+// Rendering the homepage and listing the blogs
+app.get("/", async (req, res) => {
+  const blogs = await Blog.find({});
+  res.render("homepage", { user: req.user, blogs: blogs });
 });
 
 // Routes

@@ -61,3 +61,65 @@ input {
   color: red;
   margin-top: 1rem;
 }
+
+h1 {
+  font-weight: 400;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+.card-render-blog-container {
+  padding: 1rem;
+  display: flex;
+  gap: 2rem;
+  width: 100vw;
+  flex-wrap: wrap;
+}
+
+.card-render-blog {
+  padding: 1rem;
+  text-align: center;
+  border: 1px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+img {
+  height: 20rem;
+  width: 20rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+p {
+  word-break: break-all;
+  text-indent: 1rem;
+  text-transform: capitalize;
+  color: rgb(94, 92, 92);
+}
+
+.view_blog_btn {
+  background: rgb(99, 158, 91);
+  width: 10rem;
+  height: 2rem;
+  display: block;
+  border: 1px solid black;
+}
+
+.container_blog_display {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.blog_img_display {
+  padding: 1rem;
+  width: 50rem;
+  height: 40rem
+}
+.blog_display_para {
+  padding: 1rem;
+}

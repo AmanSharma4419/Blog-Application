@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/nav.ejs") %>
+  <body>
+    <% if (locals.blog) { %>
+    <div class="container_blog_display">
+      <h1><%= locals.blog.title %></h1>
+      <img
+        class="blog_img_display"
+        src="http://localhost:3000/<%= blog.coverImageUrl %>"
+        alt="Image..."
+      />
+      <p class="blog_display_para"><%= locals.blog.body %></p>
+    </div>
+    <% } %>
+  </body>
+</html>

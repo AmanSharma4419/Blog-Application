@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { handleBlogCreation } = require("../controllers/blog.controllers");
+const {
+  handleBlogCreation,
+  findSingleBlog,
+} = require("../controllers/blog.controller");
 const multer = require("multer");
 const path = require("path");
 
@@ -21,5 +24,6 @@ router.get("/add-blog", (req, res) => {
 });
 
 router.post("/add-blog", upload.single("coverImageUrl"), handleBlogCreation);
+router.get("/blog/:id", findSingleBlog);
 
 module.exports = router;

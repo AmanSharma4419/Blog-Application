@@ -2,6 +2,18 @@
 <html lang="en">
   <%- include("./partials/nav.ejs") %>
   <body>
-    <%= JSON.stringify(locals.user) %>
+    <div class="card-render-blog-container">
+      <% if (locals.blogs.length > 0) { %> <% locals.blogs.map((blog) => { %>
+      <div class="card-render-blog">
+        <h1><%= blog.title %></h1>
+        <p><%= blog.body.split('').slice(0,15).join('') %>.....</p>
+        <img
+          src="http://localhost:3000/<%= blog.coverImageUrl %>"
+          alt="Image..."
+        />
+          <a class="view_blog_btn" href="/blog/ <%= blog._id %> ">View</a>
+      </div>
+      <% }) %> <% } %>
+    </div>
   </body>
 </html>
