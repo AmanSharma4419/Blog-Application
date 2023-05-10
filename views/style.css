@@ -118,8 +118,21 @@ p {
 .blog_img_display {
   padding: 1rem;
   width: 50rem;
-  height: 40rem
+  height: 40rem;
 }
 .blog_display_para {
   padding: 1rem;
+}
+
+.created_by_blog {
+  align-self: start;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.comments_section_blog{
+  align-self: flex-start;
+  font-size: 1.5rem;
+  padding: 2rem;
 }

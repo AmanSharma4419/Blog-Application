@@ -3,8 +3,10 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const app = express();
 const PORT = 3000;
-const userRoutes = require("./routes/users");
 const blogRoutes = require("./routes/blogs");
+const userRoutes = require("./routes/users");
+const commentRoutes = require("./routes/comment");
+
 const Blog = require("./models/blog");
 const { checkAuthTokenInHeaders } = require("./services/middlewares");
 const { connectionToDb } = require("./db/database.connection");
@@ -42,6 +44,7 @@ app.get("/", async (req, res) => {
 // Routes
 app.use("/", userRoutes);
 app.use("/", blogRoutes);
+app.use("/", commentRoutes);
 
 // Listening the server
 app.listen(PORT, () => {

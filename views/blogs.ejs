@@ -11,7 +11,38 @@
         alt="Image..."
       />
       <p class="blog_display_para"><%= locals.blog.body %></p>
+      <span class="created_by_blog">
+        Author : <%= locals.blog.createdBy.fullName %>
+      </br>
+        Email: <%= locals.blog.createdBy.email %>
+        </span
+      >  
+    <div class="comments_section_blog">
+      <% if (locals.comments) { %>
+        <pre>Comments ( <%=  locals.comments.length %> )</pre>
+        
+       <% locals.comments.forEach(comment => { %>
+        <p> <span> (<%= comment.createdBy.fullName %>)</span> <%= comment.commentBody  %>  </p>
+       <% }) %>
+      <% } %>
     </div>
+    </div>
+    
+   <% if (locals.user) { %>
+    <div class="form_wrapper">
+      <form class="form_signup" action="/add-comment/<%= locals.blog._id%>" method="post">
+        <label for="email">Comment</label>
+        <input
+          type="text"
+          placeholder="Eg: Nice blog..."
+          name="commentBody"
+        />
+        <button type="submit">Add comment</button>
+      </form>
+    </div>
+   <% } %>
     <% } %>
+
+    
   </body>
 </html>
