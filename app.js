@@ -3,50 +3,70 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const blogRoutes = require("./routes/blogs");
-const userRoutes = require("./routes/users");
-const commentRoutes = require("./routes/comment");
 
-const Blog = require("./models/blog");
-const { checkAuthTokenInHeaders } = require("./services/middlewares");
-const { connectionToDb } = require("./db/database.connection");
+const cluster = require("cluster");
+const totalCPUs = require("os").cpus().length;
 
-require("dotenv").config();
+// Clustering the server for load management
+if (cluster.isMaster) {
+  console.log(`Number of CPUs is ${totalCPUs}`);
+  console.log(`Master ${process.pid} is running`);
 
-// Db connection
-connectionToDb(process.env.DB_URL).then(() => {
-  return console.log("Connected to Db");
-});
+  for (let i = 0; i < totalCPUs; i++) {
+    cluster.fork();
+  }
 
-// Middle ware for template engine setup
-app.set("view engine", "ejs");
-app.set("views", path.resolve("./views"));
+  // If any worker is died it will recreate one
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} else {
+  const blogRoutes = require("./routes/blogs");
+  const userRoutes = require("./routes/users");
+  const commentRoutes = require("./routes/comment");
 
-// Middle ware to set teh json raw data into req body
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+  const Blog = require("./models/blog");
+  const { checkAuthTokenInHeaders } = require("./services/middlewares");
+  const { connectionToDb } = require("./db/database.connection");
 
-// Middle ware to serve the static files
-app.use(express.static("./views"));
-app.use(express.static("./public"));
-// Middle ware Parsing the cookies
-app.use(cookieParser());
+  require("dotenv").config();
 
-// Middle ware for token verification and getting the paylod
-app.use(checkAuthTokenInHeaders("token"));
+  // Db connection
+  connectionToDb(process.env.DB_URL).then(() => {
+    return console.log("Connected to Db");
+  });
 
-// Rendering the homepage and listing the blogs
-app.get("/", async (req, res) => {
-  const blogs = await Blog.find({});
-  res.render("homepage", { user: req.user, blogs: blogs });
-});
+  // Middle ware for template engine setup
+  app.set("view engine", "ejs");
+  app.set("views", path.resolve("./views"));
 
-// Routes
-app.use("/", userRoutes);
-app.use("/", blogRoutes);
-app.use("/", commentRoutes);
+  // Middle ware to set teh json raw data into req body
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
 
-// Listening the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+  // Middle ware to serve the static files
+  app.use(express.static("./views"));
+  app.use(express.static("./public"));
+  // Middle ware Parsing the cookies
+  app.use(cookieParser());
+
+  // Middle ware for token verification and getting the paylod
+  app.use(checkAuthTokenInHeaders("token"));
+
+  // Rendering the homepage and listing the blogs
+  app.get("/", async (req, res) => {
+    const blogs = await Blog.find({});
+    res.render("homepage", { user: req.user, blogs: blogs });
+  });
+
+  // Routes
+  app.use("/", userRoutes);
+  app.use("/", blogRoutes);
+  app.use("/", commentRoutes);
+
+  // Listening the server
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${process.pid}}`);
+  });
+}
