@@ -5,14 +5,17 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     body: {
       type: String,
       required: true,
       unique: true,
     },
+
     coverImageUrl: {
       type: String,
     },
+
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
